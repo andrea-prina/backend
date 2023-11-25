@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UserModule } from 'src/user/user.module';
 import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from './local.strategy';
+import { JwtStrategy } from './jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { configuration as config } from 'src/config/configuration';
 import { BcryptService } from 'src/bcrypt/bcrypt.service';
@@ -13,12 +13,12 @@ import { BcryptService } from 'src/bcrypt/bcrypt.service';
     UserModule,
     PassportModule,
     JwtModule.register({
-      secret: 'tetstststst', // TODO: Fix
+      secret: 'tetstststst', // TODO: Fix by putting JWT secret in Env Variables
       // secret: config().jwt_secret,
       signOptions: { expiresIn: '60s' },
     }),
   ],
-  providers: [AuthService, LocalStrategy, BcryptService],
+  providers: [AuthService, JwtStrategy, BcryptService],
   controllers: [AuthController],
   exports: [AuthService],
 })
