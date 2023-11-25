@@ -1,0 +1,13 @@
+{ 
+    "migrationsTableName": "migrations",
+    "migrations": [
+        "src/database/migrations/*.{ts,js}"
+    ],
+    "entities": [
+        "src/database/entities/*.{ts,js}"
+    ],
+    "cli": {
+        "entitiesDir": "src/database/entities",
+        "migrationsDir": "src/database/migrations"
+    }
+}

@@ -1,0 +1,8 @@
+import { Controller, Get, Param } from '@nestjs/common';
+import { User } from 'src/database/entities/User';
+import { AuthService } from './auth.service';
+
+@Controller('auth')
+export class AuthController {
+  constructor(private authService: AuthService) {}
+}
