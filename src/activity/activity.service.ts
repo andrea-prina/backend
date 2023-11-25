@@ -28,4 +28,14 @@ export class ActivityService {
       return 'ERROR';
     }
   }
+
+  async getAllActivitiesByUserId(id: number): Promise<ActivityEntity[]> {
+    const userActivities = await this.activitiesRepository.find({
+      where: {
+        owner: { id: +id }, // name of the column-relationship
+      },
+      relations: ['owner'], // name of the column-relationship
+    });
+    return userActivities;
+  }
 }

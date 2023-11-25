@@ -1,4 +1,4 @@
-import { Body, Controller, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ActivityService } from './activity.service';
 import { Activity } from './activity.model';
 
@@ -17,5 +17,10 @@ export class ActivityController {
     const { uuid, ...updateValues } = req;
     const updateOutcome: 'UPDATED' | 'ERROR' = await this.activityService.updateOne(uuid, updateValues);
     return updateOutcome;
+  }
+
+  @Get(':id')
+  async getAllActivitiesByUserId(@Param('id') id: number) {
+    return await this.activityService.getAllActivitiesByUserId(+id);
   }
 }
