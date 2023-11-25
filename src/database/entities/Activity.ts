@@ -44,9 +44,9 @@ export class ActivityEntity extends BaseEntity {
   @Column({ type: 'simple-array' })
   pollOptions: Date[];
 
-  @ManyToOne((type) => UserEntity, (user) => user.ownedActivities) owner: UserEntity;
+  @ManyToOne(() => UserEntity, (user) => user.ownedActivities) owner: UserEntity;
 
-  @OneToMany((type) => UserActivityEntity, (userActivity) => userActivity.activity) attendees: UserActivityEntity[];
+  @OneToMany(() => UserActivityEntity, (userActivity) => userActivity.activity) attendees: UserActivityEntity[];
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

@@ -11,7 +11,7 @@ import {
 import { ActivityEntity } from './Activity';
 import { UserActivityEntity } from './UserActivity';
 
-@Entity('user')
+@Entity('usr')
 export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -28,9 +28,9 @@ export class UserEntity extends BaseEntity {
   @Column('varchar', { length: 72 })
   password: string;
 
-  @OneToMany((type) => ActivityEntity, (activity) => activity.owner) ownedActivities: ActivityEntity[];
+  @OneToMany(() => ActivityEntity, (activity) => activity.owner) ownedActivities: ActivityEntity[];
 
-  @OneToMany((type) => UserActivityEntity, (userActivity) => userActivity.user)
+  @OneToMany(() => UserActivityEntity, (userActivity) => userActivity.user)
   attendedActivities: UserActivityEntity[];
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
