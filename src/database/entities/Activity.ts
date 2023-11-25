@@ -9,11 +9,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from './User';
-import { UserActivity } from './UserActivity';
+import { UserEntity } from './User';
+import { UserActivityEntity } from './UserActivity';
 
-@Entity()
-export class Activity extends BaseEntity {
+@Entity('activity')
+export class ActivityEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   uiid: string;
 
@@ -44,9 +44,9 @@ export class Activity extends BaseEntity {
   @Column({ type: 'simple-array' })
   pollOptions: Date[];
 
-  @ManyToOne((type) => User, (user) => user.ownedActivities) owner: User;
+  @ManyToOne((type) => UserEntity, (user) => user.ownedActivities) owner: UserEntity;
 
-  @OneToMany((type) => UserActivity, (userActivity) => userActivity.activity) attendees: UserActivity[];
+  @OneToMany((type) => UserActivityEntity, (userActivity) => userActivity.activity) attendees: UserActivityEntity[];
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

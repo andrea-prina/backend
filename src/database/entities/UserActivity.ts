@@ -8,22 +8,22 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from './User';
-import { Activity } from './Activity';
+import { UserEntity } from './User';
+import { ActivityEntity } from './Activity';
 
-@Entity()
-export class UserActivity extends BaseEntity {
+@Entity('user_activity')
+export class UserActivityEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'simple-array' })
   attendanceDates: Date[];
 
-  @ManyToOne(() => User, (user) => user.attendedActivities)
-  user: User;
+  @ManyToOne(() => UserEntity, (user) => user.attendedActivities)
+  user: UserEntity;
 
-  @ManyToOne(() => Activity, (activity) => activity.attendees)
-  activity: Activity;
+  @ManyToOne(() => ActivityEntity, (activity) => activity.attendees)
+  activity: ActivityEntity;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

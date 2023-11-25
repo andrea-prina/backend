@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Activity } from 'src/database/entities/Activity';
+import { ActivityEntity } from 'src/database/entities/Activity';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class ActivityService {
   constructor(
-    @InjectRepository(Activity)
-    private usersRepository: Repository<Activity>
+    @InjectRepository(ActivityEntity)
+    private usersRepository: Repository<ActivityEntity>
   ) {}
 
-  findAll(): Promise<Activity[]> {
+  findAll(): Promise<ActivityEntity[]> {
     return this.usersRepository.find();
   }
 
-  findOne(uiid: string): Promise<Activity | null> {
+  findOne(uiid: string): Promise<ActivityEntity | null> {
     return this.usersRepository.findOneBy({ uiid });
   }
 }

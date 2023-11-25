@@ -6,18 +6,19 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { configuration as config } from 'src/config/configuration';
+import { BcryptService } from 'src/bcrypt/bcrypt.service';
 
 @Module({
   imports: [
     UserModule,
     PassportModule,
     JwtModule.register({
-      // secret: 'tetstststst',
-      secret: config().jwt_secret,
+      secret: 'tetstststst', // TODO: Fix
+      // secret: config().jwt_secret,
       signOptions: { expiresIn: '60s' },
     }),
   ],
-  providers: [AuthService, LocalStrategy],
+  providers: [AuthService, LocalStrategy, BcryptService],
   controllers: [AuthController],
   exports: [AuthService],
 })

@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { configuration } from './config/configuration';
+import { BcryptModule } from './bcrypt/bcrypt.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { configuration } from './config/configuration';
     UserModule,
     ActivityModule,
     AuthModule,
+    BcryptModule,
   ],
   controllers: [AppController],
   providers: [AppService],
