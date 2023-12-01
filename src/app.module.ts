@@ -5,7 +5,6 @@ import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
 import { ActivityModule } from './activity/activity.module';
 import { AuthModule } from './auth/auth.module';
-import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { configuration } from './config/configuration';
 import { BcryptModule } from './bcrypt/bcrypt.module';
@@ -14,7 +13,7 @@ import { BcryptModule } from './bcrypt/bcrypt.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['../.env'],
+      envFilePath: ['.env'],
       load: [configuration],
     }),
     DatabaseModule,

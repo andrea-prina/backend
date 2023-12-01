@@ -13,8 +13,7 @@ import { BcryptService } from 'src/bcrypt/bcrypt.service';
     UserModule,
     PassportModule,
     JwtModule.register({
-      secret: 'tetstststst', // TODO: Fix by putting JWT secret in Env Variables
-      // secret: config().jwt_secret,
+      secret: config().jwt_secret,
       signOptions: { expiresIn: '60s' },
     }),
   ],

@@ -3,6 +3,7 @@ import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/user/user.model';
 import { BcryptService } from 'src/bcrypt/bcrypt.service';
+import { configuration as config } from 'src/config/configuration';
 
 @Injectable()
 export class AuthService {
@@ -24,7 +25,7 @@ export class AuthService {
     const user = await this.validateUser(req.email, req.password);
     if (user) {
       const payload = { email: user.email };
-      return { access_token: this.jwtService.sign(payload) };
+      return { access_token: this.jwtService.sign(payload, { secret: config().jwt_secret }) };
     }
     return null;
   }
