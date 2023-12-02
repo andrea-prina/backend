@@ -18,13 +18,18 @@ export class ActivityController {
   async updateActivity(@Body() req: any) {
     //TODO: Fix type --> UpdateDto
     const { uuid, ...updateValues } = req;
-    const updateOutcome: 'UPDATED' | 'ERROR' = await this.activityService.updateOne(uuid, updateValues);
-    return updateOutcome;
+    await this.activityService.updateOne(uuid, updateValues);
   }
 
-  @Get(':id')
-  @UseGuards(JwtAuthGuard)
+  @Get('get-owned-activities/:id')
+  //@UseGuards(JwtAuthGuard)
   async getAllActivitiesByUserId(@Param('id') id: number) {
     return await this.activityService.getAllActivitiesByUserId(+id);
+  }
+
+  @Get(':uuid')
+  //@UseGuards(JwtAuthGuard)
+  async getActivityById(@Param('uiid') uiid: string) {
+    return await this.activityService.findOne(uiid);
   }
 }

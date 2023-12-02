@@ -20,13 +20,8 @@ export class ActivityService {
     return this.activitiesRepository.save(newActivity);
   }
 
-  async updateOne(activityId: string, activityChanges: Partial<Activity.CreateDto>): Promise<'UPDATED' | 'ERROR'> {
-    try {
-      await this.activitiesRepository.update(activityId, activityChanges);
-      return 'UPDATED';
-    } catch (error) {
-      return 'ERROR';
-    }
+  async updateOne(activityId: string, activityChanges: Partial<Activity.CreateDto>): Promise<void> {
+    await this.activitiesRepository.update(activityId, activityChanges);
   }
 
   async getAllActivitiesByUserId(id: number): Promise<ActivityEntity[]> {
@@ -34,7 +29,6 @@ export class ActivityService {
       where: {
         owner: { id: +id }, // name of the column-relationship
       },
-      relations: ['owner'], // name of the column-relationship
     });
     return userActivities;
   }

@@ -14,7 +14,7 @@ import { BcryptService } from 'src/bcrypt/bcrypt.service';
     PassportModule,
     JwtModule.register({
       secret: config().jwt_secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '600s' },
     }),
   ],
   providers: [AuthService, JwtStrategy, BcryptService],

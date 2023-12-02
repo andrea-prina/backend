@@ -35,9 +35,9 @@ export class AuthService {
     try {
       const newUser: User.Response = await this.userService.createOne({ ...user, password });
       return { access_token: this.jwtService.sign(newUser.email) };
-    } catch (error) {
+    } catch (QueryFailedError) {
       // TODO: Catch the specific errors
-      if (/(email)[\s\S]+(already exists)/.test(error.detail)) {
+      if (/(email)[\s\S]+(already exists)/.test(QueryFailedError.detail)) {
         throw new BadRequestException('There is already an account with this email');
       }
     }
