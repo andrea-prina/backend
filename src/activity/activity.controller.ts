@@ -8,13 +8,13 @@ export class ActivityController {
   constructor(private activityService: ActivityService) {}
 
   @Post('create')
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   async createActivity(@Body() req: Activity.CreateDto) {
     return await this.activityService.createOne(req);
   }
 
   @Patch('update')
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   async updateActivity(@Body() req: any) {
     //TODO: Fix type --> UpdateDto
     const { uuid, ...updateValues } = req;
@@ -23,8 +23,8 @@ export class ActivityController {
 
   @Get('get-owned-activities/:id')
   //@UseGuards(JwtAuthGuard)
-  async getAllActivitiesByUserId(@Param('id') id: number) {
-    return await this.activityService.getAllActivitiesByUserId(+id);
+  async getAllOwnedActivitiesByUserId(@Param('id') id: number) {
+    return await this.activityService.getAllOwnedActivitiesByUserId(+id);
   }
 
   @Get(':uuid')

@@ -24,7 +24,7 @@ export class ActivityService {
     await this.activitiesRepository.update(activityId, activityChanges);
   }
 
-  async getAllActivitiesByUserId(id: number): Promise<ActivityEntity[]> {
+  async getAllOwnedActivitiesByUserId(id: number): Promise<ActivityEntity[]> {
     const userActivities = await this.activitiesRepository.find({
       where: {
         owner: { id: +id }, // name of the column-relationship

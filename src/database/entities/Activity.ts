@@ -26,23 +26,23 @@ export class ActivityEntity extends BaseEntity {
   @Column({ nullable: true })
   location?: string;
 
-  @Column({ type: 'timestamp' })
-  startTimestamp: Date;
+  @Column({ type: 'bigint' })
+  startTimestamp: number;
 
-  @Column({ type: 'timestamp' })
-  endTimestamp: Date;
+  @Column({ type: 'bigint' })
+  endTimestamp: number;
 
-  @Column({ type: 'timestamp' })
-  duration: Date;
+  @Column({ type: 'bigint' })
+  duration: number;
 
   @Column('int')
   maxParticipants: number;
 
-  @Column({ type: 'timestamp', nullable: true })
-  pollDeadline?: Date;
+  @Column({ type: 'bigint', nullable: true })
+  pollDeadline?: number;
 
-  @Column({ type: 'simple-array' })
-  pollOptions: Date[];
+  @Column({ type: 'bigint', array: true })
+  pollOptions: number[];
 
   @ManyToOne(() => UserEntity, (user) => user.ownedActivities) owner: UserEntity;
 

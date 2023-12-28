@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -16,20 +17,28 @@ export class UserActivityEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'simple-array' })
-  attendanceDates: Date[];
+  @Column({ type: 'bigint' })
+  attendanceDates: number; // remove 's'
+
+  @Column()
+  userEmail: string;
 
   @ManyToOne(() => UserEntity, (user) => user.attendedActivities)
+  @JoinColumn({ name: 'userEmail', referencedColumnName: 'email' })
   user: UserEntity;
 
-  @ManyToOne(() => ActivityEntity, (activity) => activity.attendees)
+  @Column()
+  activityUiid: string;
+
+  @ManyToOne(() => ActivityEntity, (activity) => activity.attendees, {})
+  @JoinColumn({ name: 'activityUiid', referencedColumnName: 'uiid' })
   activity: ActivityEntity;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  createdAt?: Date;
 
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
+  updatedAt?: Date;
 
   @DeleteDateColumn({ type: 'timestamp' })
   deletedAt?: Date;

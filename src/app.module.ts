@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { configuration } from './config/configuration';
 import { BcryptModule } from './bcrypt/bcrypt.module';
+import { MailingModule } from './mailing/mailing.module';
+import { UserActivityModule } from './user-activity/user-activity.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { BcryptModule } from './bcrypt/bcrypt.module';
     ActivityModule,
     AuthModule,
     BcryptModule,
+    MailingModule,
+    UserActivityModule,
   ],
   controllers: [AppController],
   providers: [AppService],
