@@ -32,4 +32,14 @@ export class ActivityService {
     });
     return userActivities;
   }
+
+  async getPollOptions(id: string) {
+    const results = await this.activitiesRepository
+      .createQueryBuilder('activity')
+      .select('activity.pollOptions AS "pollOptions"')
+      .where('activity.uiid = :activityUiid', { activityUiid: id })
+      .getRawMany();
+    const pollOptions = results.map((result) => result.pollOptions)[0];
+    return pollOptions;
+  }
 }

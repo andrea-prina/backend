@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ActivityService } from './activity.service';
 import { Activity } from './activity.model';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -25,6 +25,12 @@ export class ActivityController {
   //@UseGuards(JwtAuthGuard)
   async getAllOwnedActivitiesByUserId(@Param('id') id: number) {
     return await this.activityService.getAllOwnedActivitiesByUserId(+id);
+  }
+
+  @Get('get-activity-poll-options')
+  //@UseGuards(JwtAuthGuard)
+  async getActivityPollOptionsById(@Query('id') uiid: string) {
+    return await this.activityService.getPollOptions(uiid);
   }
 
   @Get(':uuid')

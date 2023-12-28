@@ -12,25 +12,25 @@ import {
 import { UserEntity } from './User';
 import { ActivityEntity } from './Activity';
 
-@Entity('user_activity')
-export class UserActivityEntity extends BaseEntity {
+@Entity('poll_vote')
+export class PollVoteEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'bigint' })
-  attendanceDates: number; // remove 's'
+  attendanceDate: number;
 
   @Column()
   userEmail: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.attendedActivities)
+  @ManyToOne(() => UserEntity, (user) => user.pollVotes)
   @JoinColumn({ name: 'userEmail', referencedColumnName: 'email' })
   user: UserEntity;
 
   @Column()
   activityUiid: string;
 
-  @ManyToOne(() => ActivityEntity, (activity) => activity.attendees, {})
+  @ManyToOne(() => ActivityEntity, (activity) => activity.pollVotes, {})
   @JoinColumn({ name: 'activityUiid', referencedColumnName: 'uiid' })
   activity: ActivityEntity;
 

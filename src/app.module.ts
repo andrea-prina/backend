@@ -9,7 +9,8 @@ import { ConfigModule } from '@nestjs/config';
 import { configuration } from './config/configuration';
 import { BcryptModule } from './bcrypt/bcrypt.module';
 import { MailingModule } from './mailing/mailing.module';
-import { UserActivityModule } from './user-activity/user-activity.module';
+import { PollVoteModule } from './poll-vote/poll-vote.module';
+import { ActivityParticipantModule } from './activity-participant/activity-participant.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { UserActivityModule } from './user-activity/user-activity.module';
     AuthModule,
     BcryptModule,
     MailingModule,
-    UserActivityModule,
+    PollVoteModule,
+    ActivityParticipantModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -9,7 +9,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { ActivityEntity } from './Activity';
-import { UserActivityEntity } from './UserActivity';
+import { PollVoteEntity } from './PollVote';
+import { ActivityParticipantEntity } from './ActivityParticipant';
 
 @Entity('usr')
 export class UserEntity extends BaseEntity {
@@ -30,8 +31,11 @@ export class UserEntity extends BaseEntity {
 
   @OneToMany(() => ActivityEntity, (activity) => activity.owner) ownedActivities: ActivityEntity[];
 
-  @OneToMany(() => UserActivityEntity, (userActivity) => userActivity.user)
-  attendedActivities: UserActivityEntity[];
+  @OneToMany(() => PollVoteEntity, (pollVote) => pollVote.user)
+  pollVotes: PollVoteEntity[];
+
+  @OneToMany(() => PollVoteEntity, (pollVote) => pollVote.user)
+  joinedActivities: ActivityParticipantEntity[];
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
