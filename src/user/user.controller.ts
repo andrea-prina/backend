@@ -10,4 +10,8 @@ export class UserController {
   async getByOperatorId(@Param('id') id: string): Promise<UserEntity> {
     return this.userService.findOne(+id);
   }
+
+  // TODO: update email / password
+
+  // TODO: delete user
 }

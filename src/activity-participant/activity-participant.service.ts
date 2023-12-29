@@ -9,25 +9,31 @@ export class ActivityParticipantService {
     @InjectRepository(ActivityParticipantEntity) private participantRepository: Repository<ActivityParticipantEntity>
   ) {}
 
-  async addToActivity(activityUiid: string, userEmail: string) {
+  async addToActivity(activityUiid: string, userEmail: string, hasVoted: boolean) {
     const newParticipant: ActivityParticipantEntity = this.participantRepository.create({
       userEmail: userEmail,
       activityUiid: activityUiid,
-      voted: true,
+      hasVoted: hasVoted,
     });
     return this.participantRepository.save(newParticipant);
   }
+
+  // TODO: updateHasVoted - create this method and use it to update 'activity_participant.hasVoted' to 'true' after poll vote or in 'addToActivity' and 'removeFromActivity'
+  async updateHasVoted(activityUiid: string, userEmail: string) {
+    return true;
+  }
+
   async checkIfVoted(activityUiid: string, userEmail: string): Promise<boolean> {
     const hasAlreadyVoted: any = await this.participantRepository
       .createQueryBuilder('activity_participant')
-      .select('activity_participant.voted')
+      .select('activity_participant."hasVoted" AS "hasVoted"')
       .where('activity_participant.activityUiid = :activityUiid', { activityUiid: activityUiid })
       .andWhere('activity_participant.userEmail = :userEmail', { userEmail: userEmail })
       .getRawOne();
 
-    // FIXME: undefined means NOT INVITED (not present in activity_participant), thus should be handled with a different error. This check is for development
+    // FIXME: checkIfVoted undefined means NOT INVITED (not present in activity_participant), thus should be handled with a different error. This check is for development
     if (hasAlreadyVoted !== undefined) {
-      return hasAlreadyVoted['activity_participant_voted']; // TODO: implement
+      return hasAlreadyVoted['hasVoted'];
     } else {
       return false;
     }

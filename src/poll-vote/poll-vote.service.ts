@@ -31,7 +31,7 @@ export class PollVoteService {
       await this.pollRepository.save(pollVote);
     }
 
-    await this.participantService.addToActivity(activityUiid, userEmail);
+    await this.participantService.addToActivity(activityUiid, userEmail, true);
   }
 
   async getPollVotesCountByActivityId(id: string) {

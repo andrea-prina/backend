@@ -32,3 +32,6 @@ import { ActivityParticipantModule } from './activity-participant/activity-parti
   providers: [AppService],
 })
 export class AppModule {}
+
+// TODO: Fix typing across the app
+// TODO: Write unit tests, start develop with TDD approach

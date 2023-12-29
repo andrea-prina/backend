@@ -10,13 +10,19 @@ export class PollVoteController {
     return await this.PollVoteService.vote(req.activityUiid, req.userEmail, req.attendanceDates);
   }
 
-  @Get('get-poll-votes-count')
+  @Get('get-votes-count')
   async getPollVotesCountByActivityId(@Query('id') activityUiid: string) {
     return await this.PollVoteService.getPollVotesCountByActivityId(activityUiid);
   }
 
-  @Get('get-poll-participants')
+  @Get('get-participants') // TODO: Change to "get-participant-by-vote" and move generic "get-participants" to ActivityParticipantController
   async getPollParticipantsByActivityId(@Query('id') activityUiid: string) {
     return await this.PollVoteService.getPollParticipantsByActivityId(activityUiid);
   }
+
+  // TODO: Close poll (select final date, update activity and send calendar)
+
+  // TODO: Update poll votes
+
+  // TODO: Delete poll votes (user leaves activity)
 }

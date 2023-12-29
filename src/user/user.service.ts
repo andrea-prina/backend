@@ -12,7 +12,7 @@ export class UserService {
   ) {}
 
   async findByEmail(email: string): Promise<UserEntity | undefined> {
-    // TODO: TOGLIERE UNDEFINED E GESTIRE L'ERRORE SE NON TROVA LO USER
+    // TODO: Handle missing userEmail error and remove 'undefined' from typing
     const res: UserEntity = await this.usersRepository.findOne({ where: { email } });
     return res;
   }

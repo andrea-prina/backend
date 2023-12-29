@@ -18,7 +18,7 @@ export class ActivityParticipantEntity extends BaseEntity {
   id: number;
 
   @Column({ default: false })
-  voted: boolean;
+  hasVoted: boolean;
 
   @Column()
   userEmail: string;

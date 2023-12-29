@@ -6,19 +6,16 @@ import { Options } from 'nodemailer/lib/smtp-transport';
 
 @Injectable()
 export class MailingService {
-  private oauth2Client = new google.auth.OAuth2(
-    '250643032761-eoobg3sp104fvdp427mk4ne6j72df57u.apps.googleusercontent.com',
-    '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',
-    'https://developers.google.com/oauthplayground'
-  );
+  // TODO: Fix mailing service, connect directly to email
+
+  private oauth2Client = new google.auth.OAuth2('', '', 'https://developers.google.com/oauthplayground');
 
   constructor(
     private configService: ConfigService,
     private mailerService: MailerService
   ) {
     this.oauth2Client.setCredentials({
-      refresh_token:
-        '1//048RI0B1EtJgXCgYIARAAGAQSNwF-L9IrBK5n0nEs2uWo2nqSU618q5Yck3OCUQC5c9pdGbPFJ9SARszdqrlew8x-np_gBP87o88',
+      refresh_token: '',
     });
   }
 
@@ -28,8 +25,8 @@ export class MailingService {
       auth: {
         type: 'OAuth2',
         user: 'pollmyevent@gmail.com',
-        clientId: '250643032761-eoobg3sp104fvdp427mk4ne6j72df57u.apps.googleusercontent.com',
-        clientSecret: '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',
+        clientId: '',
+        clientSecret: '',
         accessToken: await this.getAccessToken(),
       },
     };

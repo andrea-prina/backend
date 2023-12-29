@@ -16,7 +16,7 @@ export class ActivityController {
   @Patch('update')
   //@UseGuards(JwtAuthGuard)
   async updateActivity(@Body() req: any) {
-    //TODO: Fix type --> UpdateDto
+    //TODO: Fix type --> UpdateDto excluding pollOptions
     const { uuid, ...updateValues } = req;
     await this.activityService.updateOne(uuid, updateValues);
   }
