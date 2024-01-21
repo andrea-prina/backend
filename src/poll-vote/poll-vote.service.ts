@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class PollVoteService {
   constructor(
-    @InjectRepository(PollVoteEntity) private pollRepository: Repository<PollVoteEntity>,
+    @InjectRepository(PollVoteEntity) private pollVoteRepository: Repository<PollVoteEntity>,
     private activityService: ActivityService,
     private participantService: ActivityParticipantService
   ) {}
@@ -24,24 +24,24 @@ export class PollVoteService {
 
       // if (!pollOptionsForActivity.includes(pollDate.toString())) throw Error('Invalid poll option'); // TODO: Return error message
 
-      const pollVote: PollVoteEntity = this.pollRepository.create();
+      const pollVote: PollVoteEntity = this.pollVoteRepository.create();
       pollVote.attendanceDate = pollDate;
       pollVote.activityUiid = activityUiid;
       pollVote.userEmail = userEmail;
-      await this.pollRepository.save(pollVote);
+      await this.pollVoteRepository.save(pollVote);
     }
 
     await this.participantService.addToActivity(activityUiid, userEmail, true);
   }
 
   async getPollVotesCountByActivityId(id: string) {
-    // const results = await this.pollRepository.findBy({ activityUiid: id });
+    // const results = await this.pollVoteRepository.findBy({ activityUiid: id });
     // const votes = {};
     // results.forEach((item) => {
     //   const attendanceDates = item.attendanceDates;
     //   votes[attendanceDates] = (votes[attendanceDates] || 0) + 1;
     // });
-    const votes = await this.pollRepository
+    const votes = await this.pollVoteRepository
       .createQueryBuilder('poll_vote')
       .select(['poll_vote.attendanceDate AS "pollDate"', 'COUNT(poll_vote.attendanceDate)'])
       .where('poll_vote.activityUiid = :activityUiid', { activityUiid: id })
@@ -51,7 +51,7 @@ export class PollVoteService {
   }
 
   async getPollParticipantsByActivityId(id: string) {
-    const results = await this.pollRepository
+    const results = await this.pollVoteRepository
       .createQueryBuilder('poll_vote')
       .select('DISTINCT poll_vote.userEmail')
       .where('poll_vote.activityUiid = :activityUiid', { activityUiid: id })
@@ -60,4 +60,8 @@ export class PollVoteService {
     const participantsEmail = results.map((result) => result.userEmail);
     return participantsEmail;
   }
+
+  // async closePoll(selectedDate: number) {
+  //   this.pollVoteRepository.update()
+  // }
 }

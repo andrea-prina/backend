@@ -8,7 +8,6 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { configuration } from './config/configuration';
 import { BcryptModule } from './bcrypt/bcrypt.module';
-import { MailingModule } from './mailing/mailing.module';
 import { PollVoteModule } from './poll-vote/poll-vote.module';
 import { ActivityParticipantModule } from './activity-participant/activity-participant.module';
 
@@ -24,7 +23,6 @@ import { ActivityParticipantModule } from './activity-participant/activity-parti
     ActivityModule,
     AuthModule,
     BcryptModule,
-    MailingModule,
     PollVoteModule,
     ActivityParticipantModule,
   ],
