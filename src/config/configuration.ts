@@ -9,7 +9,12 @@ export const configuration = () => ({
     database: process.env.DB_NAME,
     schema: process.env.DB_SCHEMA,
   },
-  jwt_secret: process.env.JWT_SECRET,
+  jwt: {
+    access_secret: process.env.JWT_ACCESS_SECRET,
+    access_exp: process.env.JWT_ACCESS_EXP,
+    refresh_secret: process.env.JWT_REFRESH_SECRET,
+    refresh_exp: process.env.JWT_REFRESH_EXP,
+  },
   gcloud: {
     client_id: process.env.GCLOUD_CLIENT_ID,
     client_secret: process.env.GCLOUD_CLIENT_SECRET,

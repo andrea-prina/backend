@@ -29,6 +29,9 @@ export class UserEntity extends BaseEntity {
   @Column('varchar', { length: 72 })
   password: string;
 
+  @Column('varchar', { length: 72, nullable: true })
+  hashedRefreshToken?: string;
+
   @OneToMany(() => ActivityEntity, (activity) => activity.owner) ownedActivities: ActivityEntity[];
 
   @OneToMany(() => PollVoteEntity, (pollVote) => pollVote.user)

@@ -29,4 +29,16 @@ export class UserService {
     const newUser = this.usersRepository.create(user);
     return this.usersRepository.save(newUser);
   }
+
+  async updateOne(userEmail: string, updateData: Partial<UserEntity>) {
+    const userToUpdate = await this.findByEmail(userEmail);
+    if (!userToUpdate) {
+      // Handle case where the user with the specified ID is not found
+      throw new Error('User not found');
+    }
+    // Update user data
+    Object.assign(userToUpdate, updateData);
+    // Save the updated user to the database
+    return this.usersRepository.save(userToUpdate);
+  }
 }

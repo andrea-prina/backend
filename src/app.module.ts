@@ -10,6 +10,7 @@ import { configuration } from './config/configuration';
 import { BcryptModule } from './bcrypt/bcrypt.module';
 import { PollVoteModule } from './poll-vote/poll-vote.module';
 import { ActivityParticipantModule } from './activity-participant/activity-participant.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -18,6 +19,12 @@ import { ActivityParticipantModule } from './activity-participant/activity-parti
       envFilePath: ['.env'],
       load: [configuration],
     }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 10,
+      },
+    ]),
     DatabaseModule,
     UserModule,
     ActivityModule,
