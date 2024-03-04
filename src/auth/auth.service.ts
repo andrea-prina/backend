@@ -22,18 +22,18 @@ export class AuthService {
     return null;
   }
 
-  async login(req: { email: string; password: string }): Promise<{ accessToken: string } | null> {
+  async login(req: { email: string; password: string }): Promise<any | null> {
     const user = await this.validateUser(req.email, req.password);
     if (user) {
       const tokens = await this.getTokens(user.email);
       // Set the current refresh token for the user in database
       await this.updateHashedRefreshToken(user.email, tokens.refreshToken);
-      return tokens;
+      return { userEmail: user.email, tokens: tokens };
     }
     return null;
   }
 
-  async signup(user: User.CreateDto): Promise<{ accessToken: string } | BadRequestException> {
+  async signup(user: User.CreateDto): Promise<any | BadRequestException> {
     const password = await this.bcrypt.hashData(user.password);
     try {
       // Create the user
@@ -42,7 +42,7 @@ export class AuthService {
       const tokens = await this.getTokens(newUser.email);
       // Set the current refresh token for the user in database
       await this.updateHashedRefreshToken(newUser.email, tokens.refreshToken);
-      return tokens;
+      return { userEmail: user.email, tokens: tokens };
     } catch (QueryFailedError) {
       // TODO: Catch the specific errors
       if (/(email)[\s\S]+(already exists)/.test(QueryFailedError.detail)) {
